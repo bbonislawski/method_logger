@@ -26,15 +26,21 @@ Include mixin in your class like this:
 include MethodLogger::mixin({})
 ```
 
-You can customize it by passing options to mixin in hash. Default options are:
+You can customize it by passing options to mixin in hash:
+```
+{
+  ignored_methods: [], # [Array of symbols] used to ignore methods that we don't need to see
+  logger: Logger.new(File.open(options[:filename], 'a+')), # if you don't like basic ruby logger, you can pass your own. It
+  must respond to #info
+  formatter: DefaultFormatter.new, # this is used for formatting. You can pass any object that responds to #call method
+  filename: 'method_logger_log.txt', # filename to put logs in default logger
+  log_to_file: false ,# determines if it should log to file
+  log_to_stdout: true # determines if it should log to standard output
+}
+```
 
-ignored_methods: [] # [Array of symbols] used to ignore methods that we don't need to see
-logger: Logger.new(File.open(options[:filename], 'a+')) # if you don't like basic ruby logger, you can pass your own. It
-must respond to #info
-formatter: DefaultFormatter.new # this is used for formatting. You can pass any object that responds to #call method
-filename: 'method_logger_log.txt' # filename to put logs in default logger
-log_to_file: false # determines if it should log to file
-log_to_stdout: true # determines if it should log to standard output
+
+
 
 ## Contributing
 
