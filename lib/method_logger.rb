@@ -10,7 +10,9 @@ module MethodLogger
 
     def included(base_class)
       options = @_options
-      methods = @_methods || base_class.instance_methods(false) + base_class.private_instance_methods(false)
+      methods = @_methods || base_class.instance_methods(options[:include_inherited])
+      methods -= Object.methods if options[:include_inherited]
+      methods += base_class.private_instance_methods(false)
       methods -= options[:ignored_methods]
       formatter = options.delete(:formatter) || default_formatter
       logger = options[:logger] || default_logger(options)
@@ -34,6 +36,7 @@ module MethodLogger
 
     def default_options
       {
+        include_inherited: true,
         ignored_methods: [],
         logger: nil,
         formatter: DefaultFormatter.new,

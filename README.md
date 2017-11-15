@@ -21,7 +21,7 @@ Or install it yourself as:
 
 ## Usage
 
-Include mixin in your class like this:
+Include mixin at the end of your class like this:
 ```ruby
 include MethodLogger::mixin({})
 ```
@@ -29,6 +29,7 @@ include MethodLogger::mixin({})
 You can customize it by passing options to mixin in hash:
 ```
 {
+  include_inherited: true, # determines if should include inherited methods
   ignored_methods: [], # [Array of symbols] used to ignore methods that we don't need to see
   logger: Logger.new(File.open(options[:filename], 'a+')), # if you don't like basic ruby logger, you can pass your own. It
   must respond to #info
@@ -39,6 +40,17 @@ You can customize it by passing options to mixin in hash:
 }
 ```
 
+## Example
+
+Simple example output for active record model with just 1 field in fresh project :
+
+```
+class Project < ApplicationRecord
+  include MethodLogger::mixin({ log_to_file: true, filename: 'example.output' })
+end
+```
+
+[Example output](https://github.com/bbonislawski/method_logger/blob/master/output.example)
 
 
 
