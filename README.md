@@ -56,7 +56,7 @@ end
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/method_logger.
+Bug reports and pull requests are welcome on GitHub at https://github.com/bbonislawski/method_logger.
 
 ## License
 
